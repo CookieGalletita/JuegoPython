@@ -58,8 +58,6 @@ class SemillaPlantada:
 
 semillaRosa.plantarSemilla()
 semillaRosa.info()
-semillaTulipan.plantarSemilla()
-semillaTulipan.info()
 
 
     
