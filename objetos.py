@@ -1,9 +1,13 @@
+import time
+
 almacigo= 5
 almacigo_usado = []
+
 class Semilla: 
     def __init__ (self, nombre, cantidad):
         self.nombre = nombre #semilla nombre
         self.cantidad = cantidad
+        self.semillaPlantada = None
         
     
     def plantarSemilla (self):
@@ -11,9 +15,9 @@ class Semilla:
         if self.cantidad >= 1 and almacigo >= 1:
             self.cantidad -=1
             almacigo -= 1
+            self.semillaPlantada= SemillaPlantada(self.nombre, "Plantada", 5)
 
-            semilla_creciendo =SemillaPlantada(self.nombre)
-            almacigo_usado.append(semilla_creciendo)
+            almacigo_usado.append(self.semillaPlantada)
 
             if self.cantidad ==1:
                 print (f"Has usado una {self.nombre} te queda {self.cantidad} semilla 🌱")
@@ -32,7 +36,8 @@ class Semilla:
         else:
             print("\nNo hay semillas plantadas aún.")
             print(f"Tienes {almacigo} almácigos libres.")
-    
+        
+        self.semillaPlantada.tiempoCrecimiento()
     
 
     def info (self):
@@ -52,12 +57,33 @@ class Flor:
 
    
 class SemillaPlantada:
-    def __init__(self, nombre):
+    global almacigo
+    def __init__(self, nombre, estado, crecimiento):
         self.nombre= nombre
-        self.estado= "Plantada" #creciendo lista
+        self.estado= estado #creciendo lista 
+        self.crecimiento= crecimiento
+
+
+    
+    def tiempoCrecimiento(self):
+
+        tiempoInicial = time.time()
+        plantaCrecida = tiempoInicial + self.crecimiento
+        
+        while time.time() <= plantaCrecida:
+            tiempoRestante = int(plantaCrecida - time.time())
+            print(f"Tiempo restante", tiempoRestante, " segundos" )
+            time.sleep(1)
+        
+        if tiempoRestante  == 0:
+             print(f"{self.nombre} Ha Crecido 🌺")
+
+
+  
 
 semillaRosa.plantarSemilla()
 semillaRosa.info()
+
 
 
     
