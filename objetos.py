@@ -49,9 +49,18 @@ semillaRosa = Semilla("Semilla Rosa",5 )
 semillaTulipan= Semilla("Semilla Tulipan",5)
 
 class Flor:
-    def __init__ (self, nombre, cantidad):
+    def __init__ (self, nombre, estado, cantidad):
         self.nombre = nombre
+        self.estado = estado
         self.cantidad = cantidad
+    
+    def tomarFlor(self):
+        if self.estado == "Lista":
+            self.cantidad -= 1
+            self.semilla = Semilla(self.nombre,self.cantidad) #aca tengo que agregar que al tomar la planta sea 1 2 o 3 semillas
+
+
+    
 
         
 
@@ -63,20 +72,25 @@ class SemillaPlantada:
         self.estado= estado #creciendo lista 
         self.crecimiento= crecimiento
 
-
     
     def tiempoCrecimiento(self):
 
         tiempoInicial = time.time()
         plantaCrecida = tiempoInicial + self.crecimiento
+    
         
         while time.time() <= plantaCrecida:
             tiempoRestante = int(plantaCrecida - time.time())
             print(f"Tiempo restante", tiempoRestante, " segundos" )
             time.sleep(1)
+            self.estado = "Creciendo"
         
         if tiempoRestante  == 0:
+             self.estado = "Lista"
              print(f"{self.nombre} Ha Crecido 🌺")
+             self.flor = Flor(self.nombre, "Lista", 1 )
+
+        
 
 
   
